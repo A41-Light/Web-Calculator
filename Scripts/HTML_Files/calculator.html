@@ -69,7 +69,7 @@
      }
 
      body{
-          font-family:'Times New Roman', Times, serif;
+          font-family: 'Roboto', sans-serif;
      }
 
           
@@ -80,14 +80,13 @@
             justify-content: right;
             align-items: flex-end;
             padding-right: 10px;
-            width: 455px;
+            width: 446px;
             height: 70px;
             background-color: rgb(255, 255, 255);
             border: 1px solid #d2d2d2;
             border-radius: 7px;
             color: #000000;
             font-size: 30px;
-            margin-top: 50px;
             margin-left: 290px;
             overflow: hidden;
             white-space: nowrap; 
@@ -95,14 +94,10 @@
             position: relative;
         }
 
-        #display {           
-            width: 100%;                  
-            margin: 0;                    
-            padding-bottom: 0;            
-            height: 100%;                 
-            display: flex;                
-            align-items: flex-end;                  
+        .number-display:hover{
+          cursor:text;
         }
+
 
         .number_button{
             display: flex;
@@ -110,15 +105,21 @@
             align-items: center;
             width: 85px;
             height: 40px;
-            background-color: #f1f3f4;
+            background-color: #f6f4f4;
             color: #000000;
-            border-radius: 5px;
-            font-size: 15px;
-            margin-top: 10px;
-            margin-right: 10px;
+            border-radius: 18px;
+            font-size: 16px;
+            margin-top: 8px;
+            margin-right: 8px;
             font-weight: 600px;
-            border: 0cm;
+            border: 0.1px solid #ececec;
             cursor: pointer;
+            transition: transform 0.1s ease-in-out;
+        }
+
+        .number_button:hover{
+            background-color: #ececec;
+            transform: scale(1.05);
         }
 
         .symbol_button{
@@ -129,14 +130,20 @@
             height: 40px;
             background-color: #dadce0;
             color: #000000;
-            border-radius: 5px;
-            font-size: 20px;
-            margin-top: 10px;
-            margin-right: 10px;
+            border-radius: 7px;
+            font-size: 18px;
+            margin-top: 8px;
+            margin-right: 8px;
             font-weight: 400;
             border: 0cm;  
             cursor: pointer;   
+               transition: transform 0.1s ease-in-out;
         }
+
+            .symbol_button:hover{
+               background-color: #c4c4c4;
+               transform: scale(1.05);
+            }
 
         #\=
         {
@@ -220,125 +227,128 @@
           </div>
      </div>
      
-    <div id="main" class="number-display">
-        <p id="display">0 
-    </div>
-    
-    <script>
-    document.getElementById("main").textContent = 0; 
-    </script>
+     <div style = "margin-left : 200px; margin-top: 60px;">
 
-    <div> 
-    <div style="display: flex;">
-        <button onclick="clicked(this)" id="(" class="symbol_button margin" style="font-weight: 100;">
-             ( 
-        </button>
+          <div id="main" class="number-display">
+               <p id="display">0</p>
+          </div>
+          
+          <script>
+          document.getElementById("main").textContent = 0; 
+          </script>
 
-        <button onclick="clicked(this)" id=")" class="symbol_button" style="font-weight: 100;">
-             ) 
-        </button>
+          <div> 
+          <div style="display: flex;">
+               <button onclick="clicked(this)" id="(" class="symbol_button margin" style="font-weight: 100;">
+                    ( 
+               </button>
 
-        <button onclick="clicked(this)" id="%" class="symbol_button" style="font-weight: 100;">
-             % 
-        </button>
+               <button onclick="clicked(this)" id=")" class="symbol_button" style="font-weight: 100;">
+                    ) 
+               </button>
 
-        <button onclick="clicked(this)" id="CE" class="symbol_button" style="font-size: 15px;font-weight: 400;">
-             CE 
-        </button>
+               <button onclick="clicked(this)" id="%" class="symbol_button" style="font-weight: 100;">
+                    % 
+               </button>
 
-        <button onclick="clicked(this)" id="GST" class="symbol_button"  style="font-weight: 100; font-size: 15px;">
-             GST 
-        </button>
-    </div>
+               <button onclick="clicked(this)" id="CE" class="symbol_button" style="font-size: 15px;font-weight: 400;">
+                    CE 
+               </button>
 
-    <div style="display: flex;">
-        <button onclick="clicked(this)" id="7" class="number_button margin">
-             7 
-        </button>
+               <button onclick="clicked(this)" id="GST" class="symbol_button"  style="font-weight: 100; font-size: 15px;">
+                    GST 
+               </button>
+          </div>
 
-        <button onclick="clicked(this)" id="8" class="number_button">
-             8 
-        </button>
+          <div style="display: flex;">
+               <button onclick="clicked(this)" id="7" class="number_button margin">
+                    7 
+               </button>
 
-        <button onclick="clicked(this)" id="9" class="number_button">
-             9 
-        </button>
+               <button onclick="clicked(this)" id="8" class="number_button">
+                    8 
+               </button>
 
-        <button onclick="clicked(this)" id="÷" class="symbol_button">
-             ÷ 
-        </button>
+               <button onclick="clicked(this)" id="9" class="number_button">
+                    9 
+               </button>
 
-        <button onclick="clicked(this)" id="MR" class="symbol_button"  style="font-weight: 100; font-size: 15px;">
-             MR 
-        </button>
-    </div>
+               <button onclick="clicked(this)" id="÷" class="symbol_button">
+                    ÷ 
+               </button>
 
-    <div style="display: flex;">
-        <button onclick="clicked(this)" id="4" class="number_button margin">
-             4 
-        </button>
+               <button onclick="clicked(this)" id="MR" class="symbol_button"  style="font-weight: 100; font-size: 15px;">
+                    MR 
+               </button>
+          </div>
 
-        <button onclick="clicked(this)" id="5" class="number_button">
-             5 
-        </button>
+          <div style="display: flex;">
+               <button onclick="clicked(this)" id="4" class="number_button margin">
+                    4 
+               </button>
 
-        <button onclick="clicked(this)" id="6" class="number_button">
-             6 
-        </button>
+               <button onclick="clicked(this)" id="5" class="number_button">
+                    5 
+               </button>
 
-        <button onclick="clicked(this)" id="×" class="symbol_button">
-             × 
-        </button>
+               <button onclick="clicked(this)" id="6" class="number_button">
+                    6 
+               </button>
 
-        <button onclick="clicked(this)" id="MC" class="symbol_button"  style="font-weight: 100; font-size: 15px;">
-             MC 
-        </button>
-    </div>
+               <button onclick="clicked(this)" id="×" class="symbol_button">
+                    × 
+               </button>
 
-    <div style="display: flex;">
-        <button onclick="clicked(this)" id="1" class="number_button margin">
-             1 
-        </button>
+               <button onclick="clicked(this)" id="MC" class="symbol_button"  style="font-weight: 100; font-size: 15px;">
+                    MC 
+               </button>
+          </div>
 
-        <button onclick="clicked(this)" id="2" class="number_button">
-             2 
-        </button>
+          <div style="display: flex;">
+               <button onclick="clicked(this)" id="1" class="number_button margin">
+                    1 
+               </button>
 
-        <button onclick="clicked(this)" id="3" class="number_button">
-             3 
-        </button>
+               <button onclick="clicked(this)" id="2" class="number_button">
+                    2 
+               </button>
 
-        <button onclick="clicked(this)" id="-" class="symbol_button">
-             - 
-        </button>
+               <button onclick="clicked(this)" id="3" class="number_button">
+                    3 
+               </button>
 
-        <button onclick="clicked(this)" id="M+" class="symbol_button"  style="font-weight: 100; font-size: 15px;">
-             M+ 
-        </button>
-    </div>
+               <button onclick="clicked(this)" id="-" class="symbol_button">
+                    - 
+               </button>
 
-    <div style="display: flex;">
-        <button onclick="clicked(this)" id="0" class="number_button margin">
-             0 
-        </button>
+               <button onclick="clicked(this)" id="M+" class="symbol_button"  style="font-weight: 100; font-size: 15px;">
+                    M+ 
+               </button>
+          </div>
 
-        <button onclick="clicked(this)" id="." class="number_button" style="font-weight: bold;">
-             . 
-        </button>
+          <div style="display: flex;">
+               <button onclick="clicked(this)" id="0" class="number_button margin">
+                    0 
+               </button>
 
-        <button onclick="clicked(this)" id="=" class="number_button" style="font-weight: bold;">
-             = 
-        </button>
+               <button onclick="clicked(this)" id="." class="number_button" style="font-weight: bold;">
+                    . 
+               </button>
 
-        <button onclick="clicked(this)" id="+" class="symbol_button">
-             + 
-        </button>
+               <button onclick="clicked(this)" id="=" class="number_button" style="font-weight: bold;">
+                    = 
+               </button>
 
-        <button onclick="clicked(this)" id="M-" class="symbol_button" style="font-weight: 100; font-size: 15px;">
-             M- 
-        </button>
-    </div>
-    </div>
+               <button onclick="clicked(this)" id="+" class="symbol_button">
+                    + 
+               </button>
+
+               <button onclick="clicked(this)" id="M-" class="symbol_button" style="font-weight: 100; font-size: 15px;">
+                    M- 
+               </button>
+          </div>
+          </div>
+     </div>
 
     <script src="../JavaScripts_Files/basic_calculator.js"></script>
 </body>
