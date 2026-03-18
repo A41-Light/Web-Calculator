@@ -1,5 +1,4 @@
-// Print to the console
-console.log("This is Java");
+
 
 
 var calculation = document.getElementById("main").textContent;

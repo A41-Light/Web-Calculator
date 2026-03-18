@@ -20,7 +20,7 @@
             font-style: normal;
             text-align: center;
             margin-top: 20px;
-            font-size: 3vw; /* Responsive font size */
+            font-size: 45px;
         }
 
         .sofadi-one-body {      /*Design for body text*/
@@ -29,41 +29,42 @@
             font-style: italic;
         }
 
-        .container {
+        .container { /*Container for both the boxes*/
             display: flex;
             flex-wrap: wrap;
-            justify-content: center; /* Align items to the left */
+            justify-content:space-between;
+            margin: 350px;
+            margin-top: 0px;
+            margin-bottom: 0px;
         }
 
-        .calculator-box {
+        .calculator-box { /*Container for each box*/
             background-color: #ffffff;
             border: 2px solid #000000;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             padding: 15px;
-            padding-top: 1px;
+            padding-top: 2px;
             text-align: center;
-            width: 300px; /* Fixed width for laptops */
-
-            margin: 70px;
-            margin-top: 110px; /* Keep original margin-top */
+            width: 300px;
+            margin-top: 110px;
         }
 
         .open-calculator {
-            background-color: #007bff;
+            background-color: #016fe4;
             color: white;
-            border: none;
+            border: 1px solid #0056b3;
             border-radius: 5px;
             padding: 10px 20px;
             cursor: pointer;
             font-size: 16px;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: background-color 0.5s, transform 0.4s;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .open-calculator:hover {
             background-color: #0056b3;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
         }
 
 
@@ -76,13 +77,13 @@
     <div class="container">
         <div class="calculator-box sofadi-one-body">
             <h2>Basic Calculator</h2>
-            <button class="open-calculator" onclick="window.location.href='Scripts/HTML_Files/calculator.html';">
+            <button class="open-calculator" onclick="location.href='Scripts/HTML_Files/calculator.html';">
                 Open Calculator
             </button>
         </div>
         <div class="calculator-box sofadi-one-body">
             <h2>Scientific Calculator</h2>
-            <button class="open-calculator" onclick="window.location.href='Scripts/HTML_Files/scientific_calculator.html';">
+            <button class="open-calculator" onclick="location.href='Scripts/HTML_Files/scientific_calculator.html';">
                 Open Calculator
             </button>
         </div>

@@ -6,38 +6,74 @@
     <title>Basic Calculator</title>
     <style>
 
-          .margin
+     .header-container {
+          display: flex;
+          align-items: center;  
+          justify-content: space-between; 
+     }
+
+     .image-container {
+          background: transparent;
+          border: none;
+          width:50px;
+          height: auto;
+     }
+
+     .image-container img {
+          width : 100%;
+          overflow: hidden;
+          cursor: pointer;
+          transition: transform 0.2s ease-in-out;
+     }
+
+     .image-container :hover {
+          transform: scale(1.2);
+     }
+
+          #settingsPanel
+        { 
+          position: fixed;          
+          right : -1%;               
+          top: 0;
+          width: 25%;                 
+          height: 100%;
+          border-radius: 15px;
+          background-color: #f4f4f4;  
+          box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); 
+          transition: transform 0.7s ease;  
+          transform: translateX(100%);
+          z-index: 999;      
+          }
+
+          #settingsHeader
           {
-               margin-left: 290px;
+               text-align: center;
+               text-decoration: underline;
+               padding-bottom: 20px;
           }
 
-          body{
-               font-family:'Times New Roman', Times, serif;
-          }
+     #settingsPanel.active
+     {
+          transform: translateX(0);   
+     }
 
-          .header-container {
-               display: flex;
-               align-items: center;  
-               justify-content: space-between; 
-               gap: 10px; 
-          }
-        .image-container {
-               background: transparent;
-               border: none;
-            width:40px;
-            height: auto;
-            
-        }
 
-        .image-container img{
-            width : 100%;
-            overflow: hidden;
-            cursor: pointer;
-        }
+     .hidden
+     {
+          display: block;
+     }
 
-        .image-container :hover{
-            transform: scale(1.1);
-        }
+     .margin
+     {
+          margin-left: 290px;
+     }
+
+     body{
+          font-family:'Times New Roman', Times, serif;
+     }
+
+          
+        
 
         .number-display{
             display: flex;
@@ -51,7 +87,7 @@
             border-radius: 7px;
             color: #000000;
             font-size: 30px;
-            margin-top: 30px;
+            margin-top: 50px;
             margin-left: 290px;
             overflow: hidden;
             white-space: nowrap; 
@@ -161,100 +197,6 @@
           font-size: 18px;
           padding-left: 15px;
      }
-
-     @media(max-width:1024px) and (min-width : 672px){
-          #GSTval{
-               height :16px;
-               font-size: 14px;
-               width: 60px;
-          }
-
-          #DecimalDigits{
-               height :16px;
-               font-size: 14px;
-               width: 28px;
-          }
-
-          .margin{
-               margin-left:19%;
-          }
-
-          .number-display {
-                margin-left: auto; /* Center align */
-                margin-right: auto; /* Center align */
-          }
-          .label{
-               font-size: 16px;
-               padding-left: 2px;
-          }
-     }
-
-     @media (max-width: 672px) {
-
-          #GSTval{
-               height :16px;
-               font-size: 14px;
-               width: 60px;
-          }
-
-          #DecimalDigits{
-               height :16px;
-               font-size: 14px;
-               width: 30px;
-          }
-
-          .label{
-               font-size: 16px;
-               padding-left: 2px;
-          }
-
-          .margin
-          {
-               margin-left: 0px;
-          }
-
-          #settingsPanel{
-               width: 50%;
-          }
-
-            .number-display {
-                width: 93%; /* Responsive width for display */
-                margin-left: auto; /* Center align */
-                margin-right: auto; /* Center align */
-            }
-
-            .header-container {
-               align-items: center; /* Center align */
-            }
-
-            .image-container {
-                margin: 10px 0; /* Add space between items */
-            }
-
-            .number_button, .symbol_button {
-                width: 20%; /* Make buttons responsive */
-                margin: 5px; /* Adjust spacing */
-            }
-
-            .number-button-row {
-                display: flex;
-                flex-wrap: wrap; /* Allow buttons to wrap */
-                justify-content: center; /* Center align */
-                width: 100%;
-            }
-        }
-
-        /* Additional Styles for Very Small Devices */
-        @media (max-width: 600px) {
-            .number-display {
-                font-size: 24px; /* Smaller font size for display */
-                display: flex;
-            }
-
-            .number_button, .symbol_button {
-                font-size: 14px; /* Smaller font size for buttons */
-            }
-        }
 
     </style>
 </head>
