@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <style>
+          body{
+               font-family:'Times New Roman', Times, serif;
+          }
+
+          .header-container {
+               display: flex;
+               align-items: center;  
+               justify-content: space-between; 
+               gap: 10px; 
+          }
+        .image-container {
+               background: transparent;
+               border: none;
+            width:40px;
+            height: auto;
+            
+        }
+
+        .image-container img{
+            width : 100%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .image-container :hover{
+            transform: scale(1.1);
+        }
+
+        .number-display{
+            display: flex;
+            justify-content: right;
+            align-items: flex-end;
+            padding-right: 10px;
+            width: 645px;
+            height: 70px;
+            background-color: rgb(255, 255, 255);
+            border: 1px solid #d2d2d2;
+            border-radius: 7px;
+            color: #000000;
+            font-size: 30px;
+            margin-top: 30px;
+            margin-left: 195px;
+            overflow: hidden;
+            white-space: nowrap; 
+            padding-bottom: 7px; 
+            position: relative;
+        }
+
+        #display {           
+            width: 100%;                  
+            margin: 0;                    
+            padding-bottom: 0;            
+            height: 100%;                 
+            display: flex;                
+            align-items: flex-end;                  
+        }
+
+        .number_button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 85px;
+            height: 40px;
+            background-color: #f1f3f4;
+            color: #000000;
+            border-radius: 5px;
+            font-size: 15px;
+            margin-top: 10px;
+            margin-right: 10px;
+            font-weight: 600px;
+            border: 0cm;
+            cursor: pointer;
+        }
+
+        .symbol_button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 85px;
+            height: 40px;
+            background-color: #dadce0;
+            color: #000000;
+            border-radius: 5px;
+            font-size: 20px;
+            margin-top: 10px;
+            margin-right: 10px;
+            font-weight: 400;
+            border: 0cm;  
+            cursor: pointer;   
+        }
+
+        #\=
+        {
+            background-color: #3183dc;
+            color: #ffffff;
+            border: none;
+            font-size: 20px;
+        }
+
+        #settingsPanel
+        { 
+          position: fixed;          
+          right : -1%;               
+          top: 0;
+          width: 25%;                 
+          height: 100%;
+          border-radius: 15px;
+          background-color: #f4f4f4;  
+          box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); 
+          transition: transform 0.7s ease;  
+          transform: translateX(100%);      
+          }
+
+          #settingsHeader
+          {
+               text-align: center;
+               text-decoration: underline;
+               padding-bottom: 20px;
+          }
+
+     #settingsPanel.active
+     {
+          transform: translateX(0);   
+     }
+
+
+     .hidden
+     {
+          display: block;
+     }
+
+     #DecimalDigits 
+     {
+          width: 50px;
+          height: 20px;
+          font-size: 15px;
+     }
+
+     #GSTval
+     {
+          width: 80px;
+          height: 20px;
+          font-size: 15px;
+     }
+
+    </style>
+</head>
+<body>
+     <div class="header-container">
+          <div class="image-container">
+               <a href="index.html"><img src="house-icon-png.png" alt="Home"></a>
+          </div>
+          <div>
+          <button onclick="toggleSettings()" class="image-container"><img src="settings.png" alt="Home"></button>
+          <div id="settingsPanel" class="hidden">
+               <h2 id="settingsHeader">Settings</h2>
+               <label for="GSTval" style="padding-left: 15px;font-size: 18px;">GST Rate %: </label>
+               <input type="text" id="GSTval" value="18" onfocus="setDefaultValue()" oninput="validateInput()"><br>
+               <span id="error" style="color: red;"></span>
+               <br>
+               <label for="DecimalDigits" style="padding-left: 15px;font-size: 18px;">Decimal Correct upto: </label>
+               <input type="text" id="DecimalDigits" placeholder="0-15" value="" onfocus="setDefaultValue2()" oninput="validateInput2()"><br>
+               <span id="error2" style="color: red;"></span>
+          </div>
+          </div>
+     </div>
+     
+    <div id="main" class="number-display">
+        <p id="display">0 
+    </div>
+    
+    <script>
+    document.getElementById("main").textContent = 0; 
+    </script>
+
+    <div> 
+    <div style="display: flex;">
+
+        <button onclick="clicked(this)" id="log(" class="symbol_button" style="margin-left: 195px; font-size: 17px; font-weight: 200;">
+            log
+        </button>
+
+        <button onclick="clicked(this)" id="ln(" class="symbol_button" style="font-size: 17px; font-weight: 200;">
+            ln
+        </button>
+
+        <button onclick="clicked(this)" id="(" class="symbol_button" style="font-weight: 100;">
+             ( 
+        </button>
+
+        <button onclick="clicked(this)" id=")" class="symbol_button" style="font-weight: 100;">
+             ) 
+        </button>
+
+        <button onclick="clicked(this)" id="%" class="symbol_button" style="font-weight: 100;">
+             % 
+        </button>
+
+        <button onclick="clicked(this)" id="CE" class="symbol_button" style="font-size: 15px;font-weight: 400;">
+             CE 
+        </button>
+
+        <button onclick="clicked(this)" id="GST" class="symbol_button"  style="font-weight: 100; font-size: 15px;">
+             GST 
+        </button>
+    </div>
+
+    <div style="display: flex;">
+
+        <button onclick="clicked(this)" id="sin(" class="symbol_button" style="margin-left: 195px; font-size: 17px; font-weight: 200;">
+            sin
+        </button>
+
+        <button onclick="clicked(this)" id="^" class="symbol_button" style="font-size: 20px; padding-top: 5px;">
+            ^
+       </button>
+
+        <button onclick="clicked(this)" id="7" class="number_button">
+             7 
+        </button>
+
+        <button onclick="clicked(this)" id="8" class="number_button">
+             8 
+        </button>
+
+        <button onclick="clicked(this)" id="9" class="number_button">
+             9 
+        </button>
+
+        <button onclick="clicked(this)" id="÷" class="symbol_button">
+             ÷ 
+        </button>
+
+        <button onclick="clicked(this)" id="MR" class="symbol_button"  style="font-weight: 100; font-size: 15px;">
+             MR 
+        </button>
+    </div>
+
+    <div style="display: flex;">
+
+        <button onclick="clicked(this)" id="cos(" class="symbol_button" style="margin-left: 195px; font-size: 17px; font-weight: 200;">
+            cos
+        </button>
+
+        <button onclick="clicked(this)" id="π" class="symbol_button" style="font-size: 18px;">
+            π 
+       </button>
+
+        <button onclick="clicked(this)" id="4" class="number_button">
+             4 
+        </button>
+
+        <button onclick="clicked(this)" id="5" class="number_button">
+             5 
+        </button>
+
+        <button onclick="clicked(this)" id="6" class="number_button">
+             6 
+        </button>
+
+        <button onclick="clicked(this)" id="×" class="symbol_button">
+             × 
+        </button>
+
+        <button onclick="clicked(this)" id="MC" class="symbol_button"  style="font-weight: 100; font-size: 15px;">
+             MC 
+        </button>
+    </div>
+
+    <div style="display: flex;">
+
+        <button onclick="clicked(this)" id="tan(" class="symbol_button" style="margin-left: 195px; font-size: 17px; font-weight: 200;">
+            tan
+        </button>
+
+        <button onclick="clicked(this)" id="e" class="symbol_button" style="font-size: 16px;">
+            e
+        </button>
+
+        <button onclick="clicked(this)" id="1" class="number_button" >
+             1 
+        </button>
+
+        <button onclick="clicked(this)" id="2" class="number_button">
+             2 
+        </button>
+
+        <button onclick="clicked(this)" id="3" class="number_button">
+             3 
+        </button>
+
+        <button onclick="clicked(this)" id="-" class="symbol_button">
+             - 
+        </button>
+
+        <button onclick="clicked(this)" id="M+" class="symbol_button"  style="font-weight: 100; font-size: 15px;">
+             M+ 
+        </button>
+    </div>
+
+    <div style="display: flex;">
+
+        <button onclick="clicked(this)" id="√" class="symbol_button" style="margin-left: 195px; font-size: 17px; font-weight: 200;">
+           <span><sup>y</sup>√x</span>
+        </button>
+
+        <button onclick="clicked(this)" id="!" class="symbol_button" style="font-size: 15px;">
+            x!
+         </button>
+
+        <button onclick="clicked(this)" id="0" class="number_button">
+             0 
+        </button>
+
+        <button onclick="clicked(this)" id="." class="number_button" style="font-weight: bold;">
+             . 
+        </button>
+
+        <button onclick="clicked(this)" id="=" class="number_button" style="font-weight: bold;">
+             = 
+        </button>
+
+        <button onclick="clicked(this)" id="+" class="symbol_button">
+             + 
+        </button>
+
+        <button onclick="clicked(this)" id="M-" class="symbol_button" style="font-weight: 100; font-size: 15px;">
+             M- 
+        </button>
+    </div>
+    </div>
+
+    <script src="scientific_calculator.js"></script>
+</body>
+</html>
