@@ -77,7 +77,8 @@
 
         .number-display{
             display: flex;
-            justify-content: right;
+            flex-direction: column;
+            justify-content: space-between;
             align-items: flex-end;
             padding-right: 10px;
             width: 446px;
@@ -88,10 +89,10 @@
             color: #000000;
             font-size: 30px;
             margin-left: 290px;
-            overflow: hidden;
-            white-space: nowrap; 
+            padding-top: 5px;
             padding-bottom: 7px; 
             position: relative;
+            transition: all 0.2s ease;
         }
 
         .number-display:hover{
@@ -111,7 +112,6 @@
             font-size: 16px;
             margin-top: 8px;
             margin-right: 8px;
-            font-weight: 600px;
             border: 0.1px solid #ececec;
             cursor: pointer;
             transition: transform 0.1s ease-in-out;
@@ -153,39 +153,6 @@
             font-size: 20px;
         }
 
-        #settingsPanel
-        { 
-          position: fixed;          
-          right : -1%;               
-          top: 0;
-          width: 25%;                 
-          height: 100%;
-          border-radius: 15px;
-          background-color: #f4f4f4;  
-          box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); 
-          transition: transform 0.7s ease;  
-          transform: translateX(100%);
-          z-index: 999;      
-          }
-
-          #settingsHeader
-          {
-               text-align: center;
-               text-decoration: underline;
-               padding-bottom: 20px;
-          }
-
-     #settingsPanel.active
-     {
-          transform: translateX(0);   
-     }
-
-
-     .hidden
-     {
-          display: block;
-     }
-
      #DecimalDigits 
      {
           width: 50px;
@@ -205,6 +172,22 @@
           padding-left: 15px;
      }
 
+     .sub_text{
+          font-size: 14px; 
+          color: #666; 
+     }
+
+     #history{
+          font-size: 14px;
+          margin-top: 7px;
+          line-height: 1;
+     }
+
+     #display{
+          margin: 0;
+          line-height: 1;
+     }
+
     </style>
 </head>
 <body>
@@ -217,25 +200,23 @@
           <div id="settingsPanel" class="hidden">
                <h2 id="settingsHeader">Settings</h2>
                <label for="GSTval" class="label">GST Rate %: </label>
-               <input type="text" id="GSTval" value="18" onfocus="setDefaultValue()" oninput="validateInput()"><br>
+               <input type="number" id="GSTval" value="18" onfocus="setDefaultValue()" oninput="validateInput()"><br>
                <span id="error" style="color: red;"></span>
                <br>
                <label for="DecimalDigits" class="label">Decimal Correct upto: </label>
-               <input type="text" id="DecimalDigits" placeholder="0-15" value="" onfocus="setDefaultValue2()" oninput="validateInput2()"><br>
+               <input type="number" id="DecimalDigits" placeholder="0-15" value="" onfocus="setDefaultValue2()" oninput="validateInput2()"><br>
                <span id="error2" style="color: red;"></span>
           </div>
           </div>
      </div>
      
-     <div style = "margin-left : 200px; margin-top: 60px;">
+     <div style = "margin-left : 200px; margin-top: 70px;">
 
           <div id="main" class="number-display">
-               <p id="display">0</p>
+               <p id = "history" class= "sub_text" ></p>
+               
+               <p id="display" style="margin-bottom: 10px;">0</p>
           </div>
-          
-          <script>
-          document.getElementById("main").textContent = 0; 
-          </script>
 
           <div> 
           <div style="display: flex;">
@@ -273,7 +254,7 @@
                     9 
                </button>
 
-               <button onclick="clicked(this)" id="÷" class="symbol_button">
+               <button onclick="clicked(this)" id="÷" class="symbol_button" style="font-weight:600; font-size: 18px;">
                     ÷ 
                </button>
 
@@ -295,7 +276,7 @@
                     6 
                </button>
 
-               <button onclick="clicked(this)" id="×" class="symbol_button">
+               <button onclick="clicked(this)" id="×" class="symbol_button" style="font-weight: 500; font-size: 18px;">
                     × 
                </button>
 
@@ -317,7 +298,7 @@
                     3 
                </button>
 
-               <button onclick="clicked(this)" id="-" class="symbol_button">
+               <button onclick="clicked(this)" id="-" class="symbol_button" style="font-weight: 600; font-size: 18px;">
                     - 
                </button>
 
@@ -339,7 +320,7 @@
                     = 
                </button>
 
-               <button onclick="clicked(this)" id="+" class="symbol_button">
+               <button onclick="clicked(this)" id="+" class="symbol_button" style="font-weight: 500; font-size: 18px;">
                     + 
                </button>
 
