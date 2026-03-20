@@ -1,13 +1,45 @@
 
 
-var calculation = document.getElementById("main").textContent;
-calculation = 0;
+const display = document.getElementById("display");
+const history = document.getElementById("history");
 
-function updateAnswer(result)
-{
-    document.getElementById("main").textContent = result;
+var calculation = display.textContent;
+calculation = 0;
+var prevent_more_digits = false;
+var prev_expression = ""
+
+function updateAnswer(result, previous = "")
+{ 
+    display.textContent = result;
+    if (previous === "clear")
+        prev_expression = "";
+    else if (previous != "")
+    {
+        previous = previous + "=";
+        prev_expression = previous;
+    }
+    console.info(prev_expression);
+    history.textContent = prev_expression;
+
+    adjustFontSize();
 }
 
+function adjustFontSize() {
+  const length = display.textContent.length;
+  const text = display.textContent;
+
+  if (!/\d/.test(text)) { /* Fix to check for mathematical symbols and not just digits */
+    display.style.fontSize = "30px";
+    return;
+  }
+
+  let size = 30; // base size
+
+  if (length <= 20) size = 30;
+  else size = 24;
+
+  display.style.fontSize = size + "px";
+}
 
 updateAnswer(calculation);
 var answer,number1,number2,operator,answer1,number1_1,number2_1,f,strLength,val,operator2,number2_2;
@@ -50,7 +82,7 @@ function CEClick(event)
         // Clear the entire display to "0"
         calculation = 0;  
     }
-    updateAnswer(calculation);
+    updateAnswer(calculation, "clear");
 }
 
 // Adding event listener for mouse clicks
@@ -67,8 +99,20 @@ function degToRad(degree)
     return degree* Math.PI / 180;
 }
 
+function parseNumber(str)
+{
+    let match = str.match(/^[-+]?\d+(\.\d+)?/);
+
+    if (match)
+    {
+        let numberStr = match[0];
+        return numberStr;
+    }
+    return null;
+}
 function calculateAnswer(number)
 {
+    
     answer = number;
     f=0;
     while(f==0)
@@ -79,22 +123,32 @@ function calculateAnswer(number)
     answer = answer.replace(alphabets,"");
     console.log(answer);
     Ifpi = answer.slice(0,1);
+    let number_regux = parseNumber(answer);
     number1 = parseFloat(answer);
-    number1_1 = String(number1);
+    if (number1 == Infinity || number1 == -Infinity) {
+        console.error("Infinity");
+        f=0;
+        return "Infinity";
+    }
+    if (Math.abs(parseFloat(number1)) > Number.MAX_SAFE_INTEGER) {
+        console.error("Overflow");
+        f=0;
+        return "Overflow";
+    }
     if(Ifpi === "π")
     {
         number1 = Math.PI.toFixed(decimalDigits);
-        number1_1 = "π";
+        number_regux = "π";
         number = number1;
     }
     else if(Ifpi === "e")
         {
             number1 = Math.E.toFixed(decimalDigits);
-            number1_1 = "e";
+            number_regux = "e";
             number = number1;
         }
-    answer = answer.replace(number1_1,"");
-    console.log(number1_1);
+    answer = answer.replace(number_regux,"");
+    console.log(number_regux);
     if(answer === "" && !(alphabets === "sin" || alphabets === "cos" || alphabets === "tan" || alphabets === "log" || alphabets === "ln"))
     {
         if(counter==0)
@@ -110,20 +164,30 @@ function calculateAnswer(number)
     answer = answer.replace(alphabets2,"");
     console.log(alphabets2);
     Ifpi = answer.slice(0,1);
+    number_regux = parseNumber(answer);
     number2 = parseFloat(answer);
-    number2_1 = String(number2);
+    if (Math.abs(parseFloat(number2)) > Number.MAX_SAFE_INTEGER) {
+        console.error("Overflow");
+        f=0;
+        return "Overflow";
+    }
+    if (number2 == Infinity || number2 == -Infinity) {
+        console.error("Infinity");
+        f=0;
+        return "Infinity";
+    }
     if(Ifpi === "π")
         {
             number2 = Math.PI.toFixed(decimalDigits);
-            number2_1 = "π";
+            number_regux = "π";
         }
     else if(Ifpi === "e")
         {
             number2 = Math.E.toFixed(decimalDigits);
-            number2_1 = "e";
+            number_regux = "e";
         }
-    console.log(number2_1);
-    answer = answer.replace(number2_1,"");
+    console.log(number_regux);
+    answer = answer.replace(number_regux,"");
     console.log(answer);
     operator2= answer.slice(0,1);
     if((operator === "%" || operator === "!") && number2 < 0)
@@ -210,6 +274,13 @@ function clicked(button)
     var number_clicked = button.id;
     calculation = String(calculation);
     var number = parseInt(number_clicked);
+
+    if (calculation.length >= 30) {
+    // Allow only control buttons
+    if (!(button.id === "CE" || button.id === "=" || button.id === "MC" || button.id === "MR")) {
+        return;
+    }
+    }
 
     if(!(number_clicked === "M+" || number_clicked === "M-" || number_clicked === "MR" || number_clicked === "MC" || number_clicked === "="))
     {
@@ -310,10 +381,14 @@ function clicked(button)
         }
         f=0;
         counter =0;
-        calculateAnswer(calculation);
+        var response = calculateAnswer(calculation);
         calculation = val;
         if(calculation == "NaN" || calculation == "undefined")
             calculation = "Error! Please enter proper expression";
+        else if (response === "Overflow")
+            calculation = "Calculation too large";
+        else if (response === "Infinity")
+            calculation = "Infinity";
         else
         {
             answer = parseFloat(calculation);
@@ -332,6 +407,7 @@ function clicked(button)
 function equalOperator()
 {
     f=0;
+    let expression = calculation;
     checkParenthesisError(calculation);
     if(f===1)
         updateAnswer(calculation);
@@ -340,20 +416,31 @@ function equalOperator()
         if(!(calculation.indexOf("(") === -1))
             calculateParethesis(calculation);
         counter = 0;
-        calculateAnswer(calculation);
+
+        response = calculateAnswer(calculation);
         calculation = val;
         c=1;
+        //The error message should start with capital or it might cause issue.
         if(calculation == "NaN" || calculation == "undefined")
         {
             calculation = "Error! Please enter proper expression";
             c=2;
         }
+        else if (response === "Overflow")
+        {
+            calculation = "Calculation too large";
+            c=2;
+        }
+        else if (response === "Infinity")
+        {
+            calculation = "Infinity";
+            c=2;
+        }
         else
             calculation = parseFloat(parseFloat(calculation).toFixed(decimalDigits));
-        updateAnswer(calculation);
+        updateAnswer(calculation, expression);
     }
     counter = 1;
-    console.clear();
 }
 
 function checkParenthesisError(str) 
@@ -546,6 +633,7 @@ function checkEnter(event)
     if (event.key === "Enter") 
     {
         equalOperator();
+        console.log(calculation);
         updateAnswer(calculation);
     }
 }

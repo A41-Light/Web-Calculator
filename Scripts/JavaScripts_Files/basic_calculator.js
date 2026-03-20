@@ -407,6 +407,7 @@ function clicked(button)
 function equalOperator()
 {
     f=0;
+    let expression = calculation;
     checkParenthesisError(calculation);
     if(f===1)
         updateAnswer(calculation);
@@ -415,7 +416,7 @@ function equalOperator()
         if(!(calculation.indexOf("(") === -1))
             calculateParethesis(calculation);
         counter = 0;
-        let expression = calculation;
+
         response = calculateAnswer(calculation);
         calculation = val;
         c=1;
